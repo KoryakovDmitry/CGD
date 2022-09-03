@@ -121,6 +121,7 @@ if __name__ == '__main__':
     print(f"num_classes: {len(train_data_set.class_to_idx)}")
     print(f"backbone_type, gd_config, feature_dim, len(train_data_set.class_to_idx): {backbone_type}, {gd_config}, {feature_dim,} {len(train_data_set.class_to_idx)})")
     model = Model(backbone_type, gd_config, feature_dim, num_classes=len(train_data_set.class_to_idx)).cuda()
+    print(model)
     flops, params = profile(model, inputs=(torch.randn(1, 3, 256, 256).cuda(),))
     flops, params = clever_format([flops, params])
     print('# Model Params: {} FLOPs: {}'.format(params, flops))
