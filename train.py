@@ -158,5 +158,6 @@ if __name__ == '__main__':
             state_dict = torch.load(
                 osp.join(opt.output, '{}_model.pth'.format(save_name)),
             )
+            print(osp.join(opt.output, '{}_model.pth'.format(save_name)))
             model.load_state_dict(state_dict)
             torch.save(data_base, osp.join(opt.output, '{}_data_base.pth').format(save_name))
