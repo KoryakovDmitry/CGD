@@ -85,6 +85,7 @@ if __name__ == '__main__':
     parser.add_argument('--recalls', default='1,2,4,8', type=str, help='selected recall')
     parser.add_argument('--batch_size', default=128, type=int, help='train batch size')
     parser.add_argument('--num_epochs', default=20, type=int, help='train epoch number')
+    parser.add_argument('--output', default=20, type=str, help='output')
 
     opt = parser.parse_args()
     # args parse
@@ -123,6 +124,7 @@ if __name__ == '__main__':
 
     best_recall = 0.0
     for epoch in range(1, num_epochs + 1):
+        save_name_pre = f"{save_name_pre}_eph{epoch}"
         train_loss, train_accuracy = train(model, optimizer)
         results['train_loss'].append(train_loss)
         results['train_accuracy'].append(train_accuracy)
@@ -143,5 +145,5 @@ if __name__ == '__main__':
                 data_base['gallery_images'] = gallery_data_set.images
                 data_base['gallery_labels'] = gallery_data_set.labels
                 data_base['gallery_features'] = eval_dict['gallery']['features']
-            torch.save(model.state_dict(), 'results/{}_model.pth'.format(save_name_pre))
-            torch.save(data_base, 'results/{}_data_base.pth'.format(save_name_pre))
+            torch.save(model.state_dict(), osp.join(opt.output, 'results/{}_model.pth'.format(save_name_pre)))
+            torch.save(data_base, osp.join(opt.output, 'results/{}_data_base.pth').format(save_name_pre))
