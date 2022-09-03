@@ -129,7 +129,7 @@ if __name__ == '__main__':
 
     best_recall = 0.0
     for epoch in range(1, num_epochs + 1):
-        save_name_pre = f"{save_name_pre}_eph{epoch}"
+        save_name = f"{save_name_pre}_eph{epoch}"
         train_loss, train_accuracy = train(model, optimizer)
         results['train_loss'].append(train_loss)
         results['train_accuracy'].append(train_accuracy)
@@ -138,7 +138,7 @@ if __name__ == '__main__':
 
         # save statistics
         data_frame = pd.DataFrame(data=results, index=range(1, epoch + 1))
-        data_frame.to_csv(osp.join(opt.output, '{}_statistics.csv'.format(save_name_pre)), index_label='epoch')
+        data_frame.to_csv(osp.join(opt.output, '{}_statistics.csv'.format(save_name)), index_label='epoch')
         # save database and model
         data_base = {}
         if rank > best_recall:
@@ -150,5 +150,5 @@ if __name__ == '__main__':
                 data_base['gallery_images'] = gallery_data_set.images
                 data_base['gallery_labels'] = gallery_data_set.labels
                 data_base['gallery_features'] = eval_dict['gallery']['features']
-            torch.save(model.state_dict(), osp.join(opt.output, '{}_model.pth'.format(save_name_pre)))
-            torch.save(data_base, osp.join(opt.output, '{}_data_base.pth').format(save_name_pre))
+            torch.save(model.state_dict(), osp.join(opt.output, '{}_model.pth'.format(save_name)))
+            torch.save(data_base, osp.join(opt.output, '{}_data_base.pth').format(save_name))
