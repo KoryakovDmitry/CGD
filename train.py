@@ -152,4 +152,9 @@ if __name__ == '__main__':
                 data_base['gallery_labels'] = gallery_data_set.labels
                 data_base['gallery_features'] = eval_dict['gallery']['features']
             torch.save(model.state_dict(), osp.join(opt.output, '{}_model.pth'.format(save_name)))
+
+            state_dict = torch.load(
+                osp.join(opt.output, '{}_model.pth'.format(save_name)),
+            )
+            model.load_state_dict(state_dict)
             torch.save(data_base, osp.join(opt.output, '{}_data_base.pth').format(save_name))
