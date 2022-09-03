@@ -2,6 +2,7 @@ import argparse
 
 import os
 import os.path as osp
+import shutil
 
 import pandas as pd
 import torch
@@ -85,9 +86,13 @@ if __name__ == '__main__':
     parser.add_argument('--recalls', default='1,2,4,8', type=str, help='selected recall')
     parser.add_argument('--batch_size', default=128, type=int, help='train batch size')
     parser.add_argument('--num_epochs', default=20, type=int, help='train epoch number')
-    parser.add_argument('--output', default=20, type=str, help='output')
+    parser.add_argument('--output', default=osp.join(os.getcwd(), "result"), type=str, help='output')
 
     opt = parser.parse_args()
+    os.makedirs(opt.output, exist_ok=True)
+    shutil.rmtree(opt.output)
+    os.makedirs(opt.output, exist_ok=True)
+
     # args parse
     data_path, data_name, crop_type, backbone_type = opt.data_path, opt.data_name, opt.crop_type, opt.backbone_type
     gd_config, feature_dim, smoothing, temperature = opt.gd_config, opt.feature_dim, opt.smoothing, opt.temperature
