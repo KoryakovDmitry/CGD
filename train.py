@@ -1,5 +1,8 @@
 import argparse
 
+import os
+import os.path as osp
+
 import pandas as pd
 import torch
 from thop import profile, clever_format
@@ -64,8 +67,8 @@ def test(net, recall_ids):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Train CGD')
-    parser.add_argument('--data_path', default='/home/data', type=str, help='datasets path')
-    parser.add_argument('--data_name', default='car', type=str, choices=['car', 'cub', 'sop', 'isc'],
+    parser.add_argument('--data_path', default=f'{osp.join(os.getcwd(), "data/")}', type=str, help='datasets path')
+    parser.add_argument('--data_name', default="agro", type=str, choices=["agro"],
                         help='dataset name')
     parser.add_argument('--crop_type', default='uncropped', type=str, choices=['uncropped', 'cropped'],
                         help='crop data or not, it only works for car or cub dataset')

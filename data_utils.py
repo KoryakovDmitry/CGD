@@ -48,7 +48,7 @@ def process_agro_data(data_path, seed=42):
 
     torch.save(
         {"train": train_images, "test": test_images},
-        f"{osp.dirname(data_path)}/agro_dataset.pth",
+        f"{osp.dirname(data_path)}/{osp.basename(data_path)}_dataset.pth",
     )
 
 
