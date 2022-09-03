@@ -86,7 +86,7 @@ if __name__ == '__main__':
     parser.add_argument('--recalls', default='1,2,4,8', type=str, help='selected recall')
     parser.add_argument('--batch_size', default=128, type=int, help='train batch size')
     parser.add_argument('--num_epochs', default=20, type=int, help='train epoch number')
-    parser.add_argument('--output', default=osp.join(os.getcwd(), "result"), type=str, help='output')
+    parser.add_argument('--output', default=osp.join(os.getcwd(), "results"), type=str, help='output')
 
     opt = parser.parse_args()
     os.makedirs(opt.output, exist_ok=True)
@@ -138,7 +138,7 @@ if __name__ == '__main__':
 
         # save statistics
         data_frame = pd.DataFrame(data=results, index=range(1, epoch + 1))
-        data_frame.to_csv(osp.join(opt.output, 'results/{}_statistics.csv'.format(save_name_pre)), index_label='epoch')
+        data_frame.to_csv(osp.join(opt.output, '{}_statistics.csv'.format(save_name_pre)), index_label='epoch')
         # save database and model
         data_base = {}
         if rank > best_recall:
@@ -150,5 +150,5 @@ if __name__ == '__main__':
                 data_base['gallery_images'] = gallery_data_set.images
                 data_base['gallery_labels'] = gallery_data_set.labels
                 data_base['gallery_features'] = eval_dict['gallery']['features']
-            torch.save(model.state_dict(), osp.join(opt.output, 'results/{}_model.pth'.format(save_name_pre)))
-            torch.save(data_base, osp.join(opt.output, 'results/{}_data_base.pth').format(save_name_pre))
+            torch.save(model.state_dict(), osp.join(opt.output, '{}_model.pth'.format(save_name_pre)))
+            torch.save(data_base, osp.join(opt.output, '{}_data_base.pth').format(save_name_pre))
