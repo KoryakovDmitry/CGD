@@ -133,7 +133,7 @@ if __name__ == '__main__':
 
         # save statistics
         data_frame = pd.DataFrame(data=results, index=range(1, epoch + 1))
-        data_frame.to_csv('results/{}_statistics.csv'.format(save_name_pre), index_label='epoch')
+        data_frame.to_csv(osp.join(opt.output, 'results/{}_statistics.csv'.format(save_name_pre)), index_label='epoch')
         # save database and model
         data_base = {}
         if rank > best_recall:
